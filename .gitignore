@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.sisyphus/
+coverage/
+.oxlint/
+.oxfmt/
+*.tsbuildinfo
+*.tsbuild
+package-lock.json
+pnpm-lock.yaml
+.DS_Store
+Thumbs.db
