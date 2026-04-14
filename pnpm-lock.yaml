@@ -31,10 +31,23 @@ importers:
         version: 5.9.3
 
   packages/node-runtime-shims:
+    dependencies:
+      '@browser-containers/sw-sandbox':
+        specifier: workspace:*
+        version: link:../sw-sandbox
+      '@browser-containers/vfs-bus':
+        specifier: workspace:*
+        version: link:../vfs-bus
     devDependencies:
       typescript:
         specifier: ^5.8.0
         version: 5.9.3
+      vite:
+        specifier: ^8.0.8
+        version: 8.0.8(@types/node@25.6.0)(esbuild@0.27.7)
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.4(@types/node@25.6.0)(lightningcss@1.32.0)
 
   packages/node-web-shims:
     dependencies:

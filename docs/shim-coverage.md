@@ -11,9 +11,9 @@
 | `node:os` | node-web-shims | Implemented | Minimal stub via unenv |
 | `node:http` (client) | node-web-shims | Implemented | fetch adapter via unenv |
 | `node:worker_threads` | node-web-shims | Implemented | Minimal wrapper around threads.js |
-| `node:fs` | node-runtime-shims | Planned | VfsBus |
-| `node:fs/promises` | node-runtime-shims | Planned | VfsBus |
-| `node:http` (createServer) | node-runtime-shims | Planned | VirtualServer via sw-sandbox |
-| `node:net` (createServer) | node-runtime-shims | Planned | VirtualServer via sw-sandbox |
-| `node:child_process` | node-runtime-shims | Planned | WASM registry + ShellService |
-| `fs.watch` / `chokidar` | node-runtime-shims | Planned | VfsBus.watch() |
+| `node:fs` | node-runtime-shims | Implemented | VfsBus — async ops, sync throws |
+| `node:fs/promises` | node-runtime-shims | Implemented | VfsBus promises namespace |
+| `node:http` (createServer) | node-runtime-shims | Implemented | VirtualServer via sw-sandbox |
+| `node:net` (createServer) | node-runtime-shims | Implemented | Delegates to createHttpShim |
+| `node:child_process` | node-runtime-shims | Implemented | WASM registry + ShellService fallback |
+| `fs.watch` / `chokidar` | node-runtime-shims | Implemented | VfsBus.watch() |
