@@ -101,6 +101,9 @@ importers:
       '@browser-containers/node-web-shims':
         specifier: workspace:*
         version: link:../node-web-shims
+      '@browser-containers/npm':
+        specifier: workspace:*
+        version: link:../npm
       '@browser-containers/sw-sandbox':
         specifier: workspace:*
         version: link:../sw-sandbox

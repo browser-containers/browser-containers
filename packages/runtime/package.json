@@ -14,6 +14,7 @@
   "dependencies": {
     "@browser-containers/vfs-bus": "workspace:*",
     "@browser-containers/sw-sandbox": "workspace:*",
+    "@browser-containers/npm": "workspace:*",
     "quickjs-emscripten": "^0.32.0",
     "@browser-containers/node-web-shims": "workspace:*",
     "@browser-containers/node-runtime-shims": "workspace:*"
