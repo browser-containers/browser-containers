@@ -15,13 +15,18 @@ export const createChildProcessShim = (registry?: WasmRegistry, shell?: ShellSer
         if (event === 'close') {
           (async () => {
             let result: { stdout: string; stderr: string; exitCode: number };
+
             if (registry) {
               result = await registry.dispatch(command, args ?? []);
+              if (result.exitCode !== 0 && result.stderr.includes('WASM tool not found') && shell) {
+                result = await shell.exec(command, args ?? []);
+              }
             } else if (shell) {
               result = await shell.exec(command, args ?? []);
             } else {
               result = { stdout: '', stderr: 'No registry or shell available', exitCode: 1 };
             }
+
             handler(result.exitCode);
           })();
         }
