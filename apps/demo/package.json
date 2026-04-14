@@ -9,6 +9,12 @@
     "format": "oxfmt --check src",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@browser-containers/runtime": "workspace:*",
+    "@browser-containers/vfs-bus": "workspace:*",
+    "@browser-containers/sw-sandbox": "workspace:*",
+    "@browser-containers/vite-server": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^5.8.0"
   }
