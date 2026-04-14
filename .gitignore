@@ -7,6 +7,12 @@ coverage/
 *.tsbuildinfo
 *.tsbuild
 package-lock.json
-pnpm-lock.yaml
 .DS_Store
 Thumbs.db
+backlog/
+*js
+.turbo/
+tmp/
+.osgrep
+*.log
+.gauge/
