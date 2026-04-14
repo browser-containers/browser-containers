@@ -4,6 +4,16 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./vite-plugin": {
+      "types": "./dist/vite-plugin.d.ts",
+      "import": "./dist/vite-plugin.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
@@ -12,6 +22,13 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.8.0"
+    "@types/node": "^25.6.0",
+    "threads.js": "^0.6.1",
+    "typescript": "^5.8.0",
+    "vite": "^8.0.8",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "unenv": "^1.10.0"
   }
 }

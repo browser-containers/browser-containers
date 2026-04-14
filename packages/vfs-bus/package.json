@@ -11,7 +11,11 @@
     "format": "oxfmt --check src",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "memfs": "^4.17.0"
+  },
   "devDependencies": {
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
   }
 }

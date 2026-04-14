@@ -2,7 +2,17 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "unenv/runtime/node/crypto": ["./node_modules/unenv/runtime/node/crypto/index.mjs"],
+      "unenv/runtime/node/stream": ["./node_modules/unenv/runtime/node/stream/index.mjs"],
+      "unenv/runtime/node/buffer": ["./node_modules/unenv/runtime/node/buffer/index.mjs"],
+      "unenv/runtime/node/path": ["./node_modules/unenv/runtime/node/path/index.mjs"],
+      "unenv/runtime/node/url": ["./node_modules/unenv/runtime/node/url/index.mjs"],
+      "unenv/runtime/node/events": ["./node_modules/unenv/runtime/node/events/index.mjs"],
+      "unenv/runtime/node/os": ["./node_modules/unenv/runtime/node/os/index.mjs"],
+      "unenv/runtime/node/http": ["./node_modules/unenv/runtime/node/http/index.mjs"]
+    }
   },
   "include": ["src"]
 }
