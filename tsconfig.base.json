@@ -3,6 +3,7 @@
     "strict": true,
     "declaration": true,
     "sourceMap": true,
+    "skipLibCheck": true,
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler"
