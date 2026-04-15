@@ -41,11 +41,17 @@ export class SWSandbox {
     const channel = new MessageChannel();
     this.messagePort = channel.port1;
     this.messagePort.onmessage = (event: MessageEvent) => {
-      const { requestId, response, error } = event.data as {
+      const { type, requestId, response, error, request } = event.data as {
+        type?: string;
         requestId: number;
         response?: { status: number; body: string; headers: Record<string, string> };
         error?: string;
+        request?: { url: string; method: string; headers: Record<string, string>; body?: string };
       };
+      if (type === 'FETCH_REQUEST' && request) {
+        this.handleFetchRequest(requestId, request).catch(() => undefined);
+        return;
+      }
       const pending = this.pendingRequests.get(requestId);
       if (!pending) return;
       this.pendingRequests.delete(requestId);
@@ -68,6 +74,28 @@ export class SWSandbox {
 
   setPolicyRegistry(registry: Map<string, unknown>): void {
     this.policyRegistry = registry;
+  }
+
+  private async handleFetchRequest(
+    requestId: number,
+    requestData: { url: string; method: string; headers: Record<string, string>; body?: string },
+  ): Promise<void> {
+    const request = new Request(requestData.url, {
+      method: requestData.method,
+      headers: requestData.headers,
+      body: requestData.body ?? undefined,
+    });
+    const response = await this.handleInterceptedRequest(requestId, request);
+    const body = await response.text();
+    const headers: Record<string, string> = {};
+    response.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
+    this.messagePort?.postMessage({
+      type: 'FETCH_RESPONSE',
+      requestId,
+      response: { status: response.status, body, headers },
+    });
   }
 
   async handleInterceptedRequest(requestId: number, req: Request): Promise<Response> {

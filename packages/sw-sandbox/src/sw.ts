@@ -49,11 +49,22 @@ export function initSW(swGlobal: SWGlobal): void {
   });
 
   swGlobal.addEventListener('fetch', (event) => {
-    if (!isReady || !mainPort) {
-      return;
-    }
     const url = new URL(event.request.url);
     if (url.hostname !== 'localhost') {
+      return;
+    }
+    if (!isReady || !mainPort) {
+      event.respondWith(
+        new Promise<Response>((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Response('ServiceWorker timeout', { status: 503 }));
+          }, 5000);
+          requestQueue.push(() => {
+            clearTimeout(timeout);
+            handleFetchEvent(event.request).then(resolve, reject);
+          });
+        }),
+      );
       return;
     }
     event.respondWith(handleFetchEvent(event.request));

@@ -124,4 +124,54 @@ describe('SWSandbox', () => {
       'ServiceWorker not supported',
     );
   });
+
+  it('handleFetchRequest reconstructs Request, handles it, and posts FETCH_RESPONSE', async () => {
+    const createPromise = SWSandbox.create({ origin: 'http://localhost:3000', swPath: '/sw.js' });
+    swReadyResolver = simulateSwReady;
+    const sandbox = await createPromise;
+
+    const handler = vi.fn().mockResolvedValue(new Response('hello from handler', { status: 200 }));
+    sandbox.onFetch(handler);
+
+    const postMessageSpy = vi.fn();
+    (sandbox as unknown as { messagePort: { postMessage: typeof postMessageSpy } }).messagePort.postMessage =
+      postMessageSpy;
+
+    await (sandbox as unknown as { handleFetchRequest: (id: number, req: { url: string; method: string; headers: Record<string, string>; body?: string }) => Promise<void> }).handleFetchRequest(
+      42,
+      { url: 'http://localhost:3000/api/test', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"key":"value"}' },
+    );
+
+    expect(handler).toHaveBeenCalled();
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'FETCH_RESPONSE',
+        requestId: 42,
+        response: expect.objectContaining({ status: 200, body: 'hello from handler' }),
+      }),
+    );
+  });
+
+  it('handleFetchRequest returns 404 when no handler matches', async () => {
+    const createPromise = SWSandbox.create({ origin: 'http://localhost:3000', swPath: '/sw.js' });
+    swReadyResolver = simulateSwReady;
+    const sandbox = await createPromise;
+
+    const postMessageSpy = vi.fn();
+    (sandbox as unknown as { messagePort: { postMessage: typeof postMessageSpy } }).messagePort.postMessage =
+      postMessageSpy;
+
+    await (sandbox as unknown as { handleFetchRequest: (id: number, req: { url: string; method: string; headers: Record<string, string>; body?: string }) => Promise<void> }).handleFetchRequest(
+      99,
+      { url: 'http://localhost:3000/api/missing', method: 'GET', headers: {} },
+    );
+
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'FETCH_RESPONSE',
+        requestId: 99,
+        response: expect.objectContaining({ status: 404, body: 'Not found' }),
+      }),
+    );
+  });
 });

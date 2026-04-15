@@ -43,23 +43,43 @@ describe('SW script behavior', () => {
     expect(mockClients.matchAll).toHaveBeenCalledWith({ type: 'window' });
   });
 
-  it('does not intercept fetch before INIT_PORT', () => {
+  it('queues fetch requests before INIT_PORT and processes after', async () => {
     const respondWith = vi.fn();
+    let fetchHandler: ((event: { request: Request; respondWith: typeof respondWith }) => void) | undefined;
     const swGlobal = {
       addEventListener: vi.fn((type: string, handler: (...args: unknown[]) => void) => {
-        if (type === 'fetch') {
-          handler({
-            request: new Request('http://localhost:3000/'),
-            respondWith,
-          });
-        }
+        if (type === 'fetch') fetchHandler = handler as typeof fetchHandler;
       }),
       skipWaiting: vi.fn(),
       clients: mockClients,
     } as unknown as ServiceWorkerGlobalScope;
 
     initSW(swGlobal);
-    expect(respondWith).not.toHaveBeenCalled();
+
+    fetchHandler?.({
+      request: new Request('http://localhost:3000/queued'),
+      respondWith,
+    });
+    expect(respondWith).toHaveBeenCalledTimes(1);
+    expect(respondWith).toHaveBeenCalledWith(expect.any(Promise));
+
+    const mockPort = {
+      postMessage: vi.fn(),
+      onmessage: null as ((e: MessageEvent) => void) | null,
+    };
+    const messageHandler = (swGlobal.addEventListener as ReturnType<typeof vi.fn>).mock.calls.find(
+      (call) => call[0] === 'message',
+    )?.[1];
+    messageHandler?.({ data: { type: 'INIT_PORT' }, ports: [mockPort] });
+
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(mockPort.postMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'FETCH_REQUEST',
+        request: expect.objectContaining({ url: 'http://localhost:3000/queued', method: 'GET' }),
+      }),
+    );
   });
 
   it('intercepts localhost fetch after INIT_PORT', async () => {
