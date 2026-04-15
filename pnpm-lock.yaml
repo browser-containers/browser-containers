@@ -60,6 +60,9 @@ importers:
         specifier: ^1.9.0
         version: 1.9.12
     devDependencies:
+      portless:
+        specifier: latest
+        version: 0.10.2
       typescript:
         specifier: ^5.8.0
         version: 5.9.3
@@ -2274,6 +2277,12 @@ packages:
   playwright-core@1.59.1:
     resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
     engines: {node: '>=18'}
+    hasBin: true
+
+  portless@0.10.2:
+    resolution: {integrity: sha512-g2Rpt4x/jUtGTcgYtwGElhSvIQB+p7k3dy3slHsxymDFWTImq3iwCdBYqz4EH5gJ6+Gqvjm51urlOaX9mklzmA==}
+    engines: {node: '>=20'}
+    os: [darwin, linux, win32]
     hasBin: true
 
   possible-typed-array-names@1.1.0:
@@ -4622,6 +4631,8 @@ snapshots:
       find-up: 5.0.0
 
   playwright-core@1.59.1: {}
+
+  portless@0.10.2: {}
 
   possible-typed-array-names@1.1.0: {}
 

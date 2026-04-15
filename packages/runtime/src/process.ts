@@ -53,7 +53,12 @@ export function createProcess(
             resolveExit(code);
             close();
           };
-          deps.runtimeWorker.runScript(String(code), { filename: filePath, httpShimOptions: deps.httpShimOptions });
+          deps.runtimeWorker.runScript(String(code), { filename: filePath, httpShimOptions: deps.httpShimOptions })
+          .catch((err) => {
+            enqueue(String(err instanceof Error ? err.message : err) + '\n');
+            resolveExit(1);
+            close();
+          });
         }).catch((err) => {
           enqueue(String(err instanceof Error ? err.message : err) + '\n');
           resolveExit(1);

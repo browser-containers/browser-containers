@@ -4,6 +4,7 @@ import type { SWSandbox } from '@browser-containers/sw-sandbox';
 import type { RuntimeWorker } from './runtime-worker.js';
 import type { SandboxPool } from './sandbox-pool.js';
 import type { ContainerEvents } from './events.js';
+import { builtins, joinPath } from './shell-builtins.js';
 
 export interface ShellServiceDeps {
   vfs: VfsBus;
@@ -28,9 +29,11 @@ interface OutputCallbacks {
 
 export class ShellService {
   private deps: ShellServiceDeps;
+  private cwd: string;
 
   constructor(deps: ShellServiceDeps) {
     this.deps = deps;
+    this.cwd = deps.workdir ?? '/';
   }
 
   async execute(command: string, output?: Partial<OutputCallbacks>): Promise<ShellResult> {
@@ -68,6 +71,17 @@ export class ShellService {
   private async route(command: string, output: OutputCallbacks): Promise<number> {
     const tokens = command.trim().split(/\s+/);
     const [cmd, ...rest] = tokens;
+
+    const builtin = builtins.get(cmd);
+    if (builtin) {
+      const result = builtin(rest, { cwd: this.cwd }, this.deps.vfs);
+      if (result.stdout) output.stdout(result.stdout);
+      if (result.stderr) output.stderr(result.stderr);
+      if (cmd === 'cd' && result.exitCode === 0) {
+        this.cwd = joinPath(this.cwd, rest[0] ?? '/');
+      }
+      return result.exitCode;
+    }
 
     if (cmd === 'npm') return this.routeNpm(rest, output);
     if (cmd === 'runtime') return this.routeRuntime(rest, output);
@@ -140,6 +154,7 @@ export class ShellService {
                 'Content-Type': contentType,
                 'Cross-Origin-Embedder-Policy': 'require-corp',
                 'Cross-Origin-Opener-Policy': 'same-origin',
+                'Cross-Origin-Resource-Policy': 'cross-origin',
               },
             });
           } catch {

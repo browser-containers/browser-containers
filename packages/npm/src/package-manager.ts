@@ -104,11 +104,11 @@ export class PackageManager {
 
   private buildInstallArgs(packages?: string[]): string[] {
     if (packages && packages.length > 0) {
-      return ['install', ...packages];
+      return ['install', '--no-audit', ...packages];
     }
 
     const deps = this.getDependenciesFromPackageJson();
-    return ['install', ...deps];
+    return ['install', '--no-audit', ...deps];
   }
 
   private getDependenciesFromPackageJson(): string[] {

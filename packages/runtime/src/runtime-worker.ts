@@ -28,8 +28,13 @@ export class RuntimeWorker {
   ) {}
 
   async runScript(code: string, opts: RunScriptOptions = {}): Promise<void> {
-    this.worker = new Worker(new URL("./worker-script.js", import.meta.url), { type: "module" });
-    this.worker.onmessage = ({ data }: MessageEvent<RuntimeMessage>) => {
+    await new Promise<void>((resolve, reject) => {
+      this.worker = new Worker(new URL("./worker-script.js", import.meta.url), { type: "module" });
+      this.worker.onerror = (e) => {
+        reject(new Error(e.message));
+        this.dispose();
+      };
+      this.worker.onmessage = ({ data }: MessageEvent<RuntimeMessage>) => {
       switch (data.type) {
         case "STDOUT":
           return this.onStdout?.(data.data);
@@ -37,7 +42,8 @@ export class RuntimeWorker {
           return this.onStderr?.(data.data);
         case "EXIT":
           this.onExit?.(data.code);
-          return this.dispose();
+          this.dispose();
+          return resolve();
         case "HEARTBEAT":
           this.missedHeartbeats = 0;
           return;
@@ -45,6 +51,7 @@ export class RuntimeWorker {
     };
     this.worker.postMessage({ type: "RUN_SCRIPT", code, opts } satisfies RuntimeMessage);
     this.startWatchdog();
+    });
   }
 
   private startWatchdog = (): void => {

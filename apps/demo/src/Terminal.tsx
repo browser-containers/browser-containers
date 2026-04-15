@@ -11,11 +11,14 @@ interface Props {
 
 export default function Terminal(props: Props) {
   let container!: HTMLDivElement;
+  let inputProxy!: HTMLTextAreaElement;
+  let xtermRef: XTerm | undefined;
 
   onMount(() => {
     const xterm = new XTerm({
       convertEol: true,
       cursorBlink: true,
+      screenReaderMode: true,
       theme: {
         background: '#0d1117',
         foreground: '#e6edf3',
@@ -43,6 +46,7 @@ export default function Terminal(props: Props) {
     const fitAddon = new FitAddon();
     xterm.loadAddon(fitAddon);
     xterm.open(container);
+    xtermRef = xterm;
     fitAddon.fit();
 
     xterm.writeln('\x1b[2mTry: npm install lodash\x1b[0m');
@@ -95,18 +99,54 @@ export default function Terminal(props: Props) {
       }
     });
 
+    const handleProxyInput = (e: Event) => {
+      const data = (e as InputEvent).data;
+      if (data) {
+        inputBuffer += data;
+        xterm.write(data);
+      }
+      inputProxy.value = '';
+    };
+
+    const handleProxyKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        inputProxy.value = '';
+        e.preventDefault();
+        const cmd = inputBuffer.trim();
+        inputBuffer = '';
+        runCommand(cmd);
+      } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        if (inputBuffer.length > 0) {
+          inputBuffer = inputBuffer.slice(0, -1);
+          xterm.write('\b \b');
+        }
+      }
+    };
+
+    inputProxy.addEventListener('input', handleProxyInput);
+    inputProxy.addEventListener('keydown', handleProxyKeyDown);
+
     const ro = new ResizeObserver(() => fitAddon.fit());
     ro.observe(container);
 
     onCleanup(() => {
+      inputProxy.removeEventListener('input', handleProxyInput);
+      inputProxy.removeEventListener('keydown', handleProxyKeyDown);
       xterm.dispose();
+      xtermRef = undefined;
       ro.disconnect();
     });
   });
 
   return (
-    <section class="terminal">
-      <div ref={container} style={{ flex: '1', overflow: 'hidden' }} />
+    <section class="terminal" style={{ position: 'relative' }}>
+      <div ref={container} aria-label="Terminal" style={{ flex: '1', overflow: 'hidden' }} onClick={() => { xtermRef?.focus(); inputProxy?.focus(); }} />
+      <textarea
+        ref={inputProxy}
+        aria-hidden="true"
+        style={{ position: 'absolute', left: '-9999px', top: '0', width: '1px', height: '1px', opacity: '0' }}
+      />
     </section>
   );
 }
