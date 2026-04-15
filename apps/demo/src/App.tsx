@@ -1,9 +1,5 @@
-import { createSignal, onMount } from 'solid-js';
-import { VfsBus } from '@browser-containers/vfs-bus';
-import { SWSandbox } from '@browser-containers/sw-sandbox';
-import { PackageManager } from '@browser-containers/npm';
-import { RuntimeWorker, SandboxPool, ShellService, type ShellResult } from '@browser-containers/runtime';
-import { boot, type BrowserContainer } from '@browser-containers/runtime';
+import { createSignal, onMount, onCleanup } from 'solid-js';
+import { boot, type BrowserContainer, type ShellResult } from '@browser-containers/runtime';
 import Terminal from './Terminal';
 import Preview from './Preview';
 
@@ -22,40 +18,54 @@ declare global {
   }
 }
 
+function parseCommand(cmd: string): { command: string; args: string[] } {
+  const tokens = cmd.trim().split(/\s+/);
+  return { command: tokens[0] ?? '', args: tokens.slice(1) };
+}
+
+async function readStream(
+  stream: ReadableStream<string>,
+  stdout: (s: string) => void,
+  stderr: (s: string) => void,
+): Promise<number> {
+  const reader = stream.getReader();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      stdout(value);
+    }
+    return 0;
+  } finally {
+    reader.releaseLock();
+  }
+}
+
 export default function App() {
   const [bootState, setBootState] = createSignal<BootState>('booting');
   const [previewUrl, setPreviewUrl] = createSignal('');
-  let shell: ShellService | undefined;
-  let vfs: VfsBus | undefined;
+  let container: BrowserContainer | undefined;
 
   onMount(async () => {
     try {
-      vfs = new VfsBus();
+      container = await boot({ workdirName: '/home/web' });
 
-      // SWSandbox requires HTTPS + ServiceWorker. Fall back to a no-op stub so
-      // the terminal tier still works on plain http://localhost during development.
-      let sandbox: SWSandbox;
-      try {
-        sandbox = await SWSandbox.create({ origin: 'https://sandbox.local/', swPath: '/sw.js' });
-      } catch (e) {
-        console.warn('[demo] SWSandbox unavailable — preview disabled:', e);
-        sandbox = { onFetch: () => {}, setPolicyRegistry: () => {} } as unknown as SWSandbox;
-      }
-
-      const runtimeWorker = new RuntimeWorker(vfs, sandbox);
-      const sandboxPool = new SandboxPool(vfs);
-      const packageManager = new PackageManager({ vfs });
-
-      shell = new ShellService({ vfs, packageManager, runtimeWorker, sandboxPool });
-
-      const container = await boot({ workdirName: '/home/web' });
+      const unsubPort = container.on('port', (_port, type, url) => {
+        if (type === 'open') {
+          setPreviewUrl(url);
+        }
+      });
 
       window.__browserbox = {
-        install: (pkgs?: string[]) =>
-          shell!.execute(`npm install ${pkgs?.join(' ') ?? ''}`),
+        install: async (pkgs?: string[]) => {
+          const { command, args } = parseCommand(`npm install ${pkgs?.join(' ') ?? ''}`);
+          const proc = container!.spawn(command, args);
+          const exitCode = await proc.exit;
+          return { exitCode, stdout: '', stderr: '' };
+        },
         vfs: {
           writeFile: (path: string, content: string) =>
-            vfs!.writeFile(path, new TextEncoder().encode(content)),
+            container!.fs.writeFile(path, content),
         },
         preview: { loadUrl: (url: string) => setPreviewUrl(url) },
         boot,
@@ -63,20 +73,122 @@ export default function App() {
       };
       window.__browserbox_ready = true;
 
+      // Mount starter React + Vite app
+      await container.mount({
+        'package.json': {
+          file: {
+            contents: JSON.stringify(
+              {
+                name: 'starter-app',
+                type: 'module',
+                scripts: {
+                  dev: 'vite --host',
+                },
+                dependencies: {
+                  react: '^18.2.0',
+                  'react-dom': '^18.2.0',
+                },
+                devDependencies: {
+                  vite: '^5.0.0',
+                },
+              },
+              null,
+              2,
+            ),
+          },
+        },
+        'index.html': {
+          file: {
+            contents: `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starter App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>`,
+          },
+        },
+        'vite.config.js': {
+          file: {
+            contents: `import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    strictPort: false,
+  },
+});`,
+          },
+        },
+        src: {
+          directory: {
+            'main.jsx': {
+              file: {
+                contents: `import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);`,
+              },
+            },
+            'App.jsx': {
+              file: {
+                contents: `import React from 'react';
+
+export default function App() {
+  return (
+    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
+      <h1>Hello from browser-containers!</h1>
+      <p>This React app is running entirely inside your browser.</p>
+    </div>
+  );
+}`,
+              },
+            },
+          },
+        },
+      });
+
+      // Auto-install and auto-start dev server
+      const installProc = container.spawn('npm', ['install']);
+      await installProc.exit;
+
+      const devProc = container.spawn('npm', ['run', 'dev']);
+      // Fire-and-forget; output stream is consumed by the runtime
+      void devProc.exit;
+
       setBootState('ready');
+
+      onCleanup(() => {
+        unsubPort();
+      });
     } catch (e) {
       console.error('[demo] Boot failed:', e);
       setBootState('error');
     }
   });
 
-  const execute = (
+  const execute = async (
     cmd: string,
     stdout: (s: string) => void,
     stderr: (s: string) => void,
   ): Promise<ShellResult> => {
-    if (!shell) return Promise.reject(new Error('Not ready'));
-    return shell.execute(cmd, { stdout, stderr });
+    if (!container) return Promise.reject(new Error('Not ready'));
+    const { command, args } = parseCommand(cmd);
+    const proc = container.spawn(command, args);
+    const exitCode = await readStream(proc.output, stdout, stderr);
+    return { exitCode, stdout: '', stderr: '' };
   };
 
   return (
