@@ -22,7 +22,7 @@ apps/
 tests/
   unit/              Vitest, no browser
   integration/       Vitest + happy-dom
-  e2e/               Gauge + agent-browser specs
+  e2e/               Gauge + agent-browser specs. Use 'dev-browser', 'dogfood' skills/tools
 ```
 
 ## Documentation Map
@@ -60,6 +60,40 @@ tests/
 - Turborepo task orchestration (build, test, lint, format, typecheck)
 - oxlint + oxfmt for linting and formatting
 - Vitest for testing
+
+### Git Worktrees
+
+All git worktrees **must** be created under `./.worktrees/` (relative to the repo root). Never create worktrees in the repo root or elsewhere.
+
+```bash
+# ✅ Correct
+git worktree add .worktrees/feature-name feat/feature-name
+
+# 🚫 Wrong
+git worktree add feature-name feat/feature-name
+```
+
+#### Worktree-Local Sisyphus State
+
+When running in a worktree, agents **must** use a worktree-local boulder path instead of the project-wide `.sisyphus/boulder.json`. This prevents parallel agents in different worktrees from overwriting each other's state.
+
+```bash
+# ✅ Correct — worktree-local state
+.worktrees/feature-name/.sisyphus/boulder.json
+
+# ❌ Wrong — project-wide state (shared across all worktrees)
+.sisyphus/boulder.json
+```
+
+Agents running from the main worktree may use `.sisyphus/boulder.json` as normal.
+
+### Portless (Named Dev URLs)
+
+Dev servers use [portless](https://github.com/vercel-labs/portless) for stable `.localhost` URLs instead of port numbers. First run auto-starts the HTTPS proxy on port 443 and generates a local CA (run `npx portless trust` if you see certificate warnings).
+
+- **Git worktrees**: must live under `./.worktrees/` (see Universal Rules). Each gets a unique subdomain (e.g. `fix-ui.browser-containers.localhost`)
+- **Bypass**: set `PORTLESS=0` to run without the proxy (e.g. `PORTLESS=0 bun run dev-web`)
+- **Install**: already included as a dev dependency (`npx portless` or via scripts)
 
 ## ANTI-PATTERNS
 
