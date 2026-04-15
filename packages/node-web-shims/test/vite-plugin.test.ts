@@ -16,15 +16,23 @@ describe("node-web-shims: vite-plugin", () => {
     expect(plugin.resolveId).toBeDefined();
   });
 
-  it("should strip node: prefix from imports", () => {
+  it("should resolve node: imports to dist path for shimmed builtins", () => {
     const plugin = nodeWebShims();
-    const result = plugin.resolveId?.("node:crypto");
-    expect(result).toBe("crypto");
+    const result = plugin.resolveId?.("node:crypto") as string;
+    expect(result).toBeDefined();
+    expect(result).toMatch(/\/dist\/crypto\.js$/);
   });
 
-  it("should return null for non-node: imports", () => {
+  it("should return null for non-shimmed bare imports", () => {
     const plugin = nodeWebShims();
     const result = plugin.resolveId?.("fs");
     expect(result).toBeNull();
+  });
+
+  it("should resolve shimmed bare builtins to dist path", () => {
+    const plugin = nodeWebShims();
+    const result = plugin.resolveId?.("path") as string;
+    expect(result).toBeDefined();
+    expect(result).toMatch(/\/dist\/path\.js$/);
   });
 });
