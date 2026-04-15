@@ -41,6 +41,8 @@ export class PackageManager {
   async install(packages?: string[]): Promise<void> {
     const args = this.buildInstallArgs(packages);
 
+    await this.vfs.writeFile(`${this.cwd}/.npmrc`, 'audit=false\nfund=false\n').catch(() => {});
+
     await runNpmCli(args, {
       fs: this.fs,
       cwd: this.cwd,
