@@ -156,6 +156,9 @@ importers:
       '@browser-containers/vfs-bus':
         specifier: workspace:*
         version: link:../vfs-bus
+      '@browser-containers/vite-server':
+        specifier: workspace:*
+        version: link:../vite-server
       quickjs-emscripten:
         specifier: ^0.32.0
         version: 0.32.0

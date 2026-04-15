@@ -1,6 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ShellService, type ShellServiceDeps } from './shell-service.js';
 
+vi.mock('@browser-containers/vite-server', () => ({
+  BrowserViteServer: vi.fn().mockImplementation(() => ({
+    start: vi.fn().mockResolvedValue(undefined),
+    onFetch: vi.fn().mockResolvedValue(new Response('ok')),
+  })),
+}));
+
 const createMockDeps = (): ShellServiceDeps => ({
   vfs: {
     readFile: vi.fn().mockResolvedValue('console.log("hello")'),
@@ -16,6 +23,15 @@ const createMockDeps = (): ShellServiceDeps => ({
   sandboxPool: {
     run: vi.fn().mockResolvedValue({ result: 'ok' }),
   } as unknown as ShellServiceDeps['sandboxPool'],
+  sandbox: {
+    onFetch: vi.fn(),
+    setPolicyRegistry: vi.fn(),
+  } as unknown as ShellServiceDeps['sandbox'],
+  events: {
+    emit: vi.fn(),
+    on: vi.fn().mockReturnValue(() => {}),
+    removeAllListeners: vi.fn(),
+  } as unknown as ShellServiceDeps['events'],
 });
 
 describe('ShellService', () => {
@@ -45,19 +61,24 @@ describe('ShellService', () => {
     expect(result.exitCode).toBe(0);
   });
 
-  it('npm run dev → container.startDevServer()', async () => {
-    const startDevServer = vi.fn().mockResolvedValue(undefined);
-    deps.sandbox = { startDevServer };
+  it('npm run dev → starts BrowserViteServer and wires sandbox.onFetch', async () => {
+    deps.sandbox = {
+      onFetch: vi.fn(),
+      setPolicyRegistry: vi.fn(),
+    } as unknown as ShellServiceDeps['sandbox'];
 
     const result = await shell.execute('npm run dev');
-    expect(startDevServer).toHaveBeenCalledOnce();
+    expect(deps.sandbox?.onFetch).toHaveBeenCalledOnce();
+    expect(deps.events?.emit).toHaveBeenCalledWith('port', 3000, 'open', 'http://localhost:3000');
+    expect(deps.events?.emit).toHaveBeenCalledWith('server-ready', 3000, 'http://localhost:3000');
     expect(result.exitCode).toBe(0);
   });
 
-  it('npm run dev → error when no container adapter', async () => {
+  it('npm run dev → error when no sandbox configured', async () => {
+    deps.sandbox = undefined;
     const result = await shell.execute('npm run dev');
     expect(result.exitCode).toBe(1);
-    expect(result.stderr).toContain('No container adapter');
+    expect(result.stderr).toContain('No sandbox configured');
   });
 
   it('npm run <other> → SandboxPool.run()', async () => {

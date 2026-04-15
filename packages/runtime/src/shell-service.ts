@@ -1,15 +1,14 @@
 import type { VfsBus } from '@browser-containers/vfs-bus';
 import type { PackageManager } from '@browser-containers/npm';
+import type { SWSandbox } from '@browser-containers/sw-sandbox';
 import type { RuntimeWorker } from './runtime-worker.js';
 import type { SandboxPool } from './sandbox-pool.js';
-
-export interface ContainerAdapter {
-  startDevServer(): Promise<void>;
-}
+import type { ContainerEvents } from './events.js';
 
 export interface ShellServiceDeps {
   vfs: VfsBus;
-  sandbox?: ContainerAdapter;
+  sandbox?: SWSandbox;
+  events?: ContainerEvents;
   packageManager: PackageManager;
   runtimeWorker: RuntimeWorker;
   sandboxPool: SandboxPool;
@@ -106,11 +105,17 @@ export class ShellService {
 
     if (scriptName === 'dev') {
       if (!this.deps.sandbox) {
-        output.stderr('No container adapter configured for dev server');
+        output.stderr('No sandbox configured for dev server');
         return 1;
       }
       try {
-        await this.deps.sandbox.startDevServer();
+        const segments = ['@browser-containers', 'vite-server'];
+        const { BrowserViteServer } = await import(segments.join('/'));
+        const server = new BrowserViteServer({ vfs: this.deps.vfs, root: '/' });
+        await server.start();
+        this.deps.sandbox.onFetch(async (req) => server.onFetch(req.url, req));
+        this.deps.events?.emit('port', 3000, 'open', 'http://localhost:3000');
+        this.deps.events?.emit('server-ready', 3000, 'http://localhost:3000');
         return 0;
       } catch (err) {
         output.stderr(err instanceof Error ? err.message : String(err));

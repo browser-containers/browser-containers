@@ -61,23 +61,37 @@ async function doBoot(options?: BootOptions): Promise<BrowserContainer> {
     const runtimeWorker = new RuntimeWorker(vfs, sandbox);
     const sandboxPool = new SandboxPool(vfs);
     const packageManager = new PackageManager({ vfs, cwd: workdir });
+    const events = createEventEmitter();
     const shellService = new ShellService({
       vfs,
-      sandbox: { startDevServer: async () => {} },
+      sandbox,
+      events,
       packageManager,
       runtimeWorker,
       sandboxPool,
     });
 
     const fs = createFileSystem(vfs);
-    const events = createEventEmitter();
     const { mountTree } = createMount(vfs);
     const { exportTree } = createExport(vfs);
+
+    const httpShimOptions = {
+      onPortEvent: (event: string, data: { port: number; url?: string }) => {
+        if (data.url) {
+          if (event === 'server-ready') {
+            events.emit('server-ready', data.port, data.url);
+          }
+          const type = event === 'port-close' ? 'close' : 'open';
+          events.emit('port', data.port, type, data.url);
+        }
+      },
+    };
 
     const processDeps = {
       shell: shellService,
       runtimeWorker,
       vfs,
+      httpShimOptions,
     };
 
     const deps: BrowserContainerDeps = {
