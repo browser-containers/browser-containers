@@ -35,6 +35,7 @@ All previously identified issues have been resolved and the v0.2.0-react-vite.sp
 7. `packages/sw-sandbox/src/sw-sandbox.ts` `handleFetchRequest` passed an empty string body to GET/HEAD requests, causing `Request` construction to fail. Added a guard to only include body for non-GET/HEAD methods.
 8. `packages/vite-server/src/browser-vite-server.ts` used dynamic `import('typescript')` via `@sebastianwessel/quickjs`, which fails in browser bundles. Rewrote to use static `import * as ts from 'typescript'` and `ts.transpile()` directly.
 9. `packages/runtime/src/shell-service.ts` did not use `BrowserViteServer` for `npm run dev`. Updated to instantiate and start `BrowserViteServer`, enabling TSX transformation and importmap injection.
+10. `apps/demo/src/Preview.tsx` used `credentialless` on the iframe, which creates a separate network partition that bypasses the parent's Service Worker. Removed `credentialless` and added `allow-same-origin` to the sandbox so SW interception works for iframe navigation.
 
 ### ISSUE-002: Page title does not match spec
 
@@ -52,6 +53,16 @@ The following v0.2.0-react-vite.spec checks were verified via a Playwright-based
 - Preview iframe displays `Hello from browser-containers!` :white_check_mark:
 - Preview hot-reload works (`Updated!` appears after file change) :white_check_mark:
 - TSX transformation works (no raw JSX in fetched module) :white_check_mark:
+
+## Infrastructure Verification
+
+- E2E shared lib extracted (`tests/e2e/lib/ab.ts`, `config.ts`, `setup.ts`)
+- Step files refactored to use shared lib
+- Screenshot-on-failure capability added
+- CI workflow uses `DEMO_URL` env var
+- Gauge config synced (`html-report` in `gauge.properties`)
+- `agent-browser` bumped to `^0.25.5`
+- Root `package.json` has `test:e2e` and `test:e2e:verbose` scripts
 
 ## Evidence
 
