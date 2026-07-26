@@ -4,698 +4,698 @@
       "name": "fetch",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 3973.3399999999965
+      "duration": 3710.5499999999884
     },
     {
       "name": "axios",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 181.24000000000524
+      "duration": 275.9750000000058
     },
     {
       "name": "node-fetch",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 273.6600000000035
+      "duration": 826.4250000000029
     },
     {
       "name": "undici",
       "class": "HTTP client",
       "status": "fail",
-      "duration": 974.6699999999983,
+      "duration": 596.5049999999901,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20undici%20from%20%22https%3A%2F%2Fesm.sh%2Fundici%22%3B%0Atry%20%7B%0A%09undici.request%3B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "fs-extra",
       "class": "File system",
       "status": "pass",
-      "duration": 517.8399999999965
+      "duration": 156.11500000000524
     },
     {
       "name": "globby",
       "class": "File system",
       "status": "fail",
-      "duration": 410.83000000000175,
+      "duration": 380.4349999999977,
       "error": "The requested module '/unicorn-magic@^0.4.0/node?target=es2022' does not provide an export named 'toPath'"
     },
     {
       "name": "chokidar",
       "class": "File system",
       "status": "pass",
-      "duration": 219.43499999999767
+      "duration": 234.35500000001048
     },
     {
       "name": "esbuild",
       "class": "Build tool",
       "status": "pass",
-      "duration": 225.19000000000233
+      "duration": 231.6350000000093
     },
     {
       "name": "swc",
       "class": "Build tool",
       "status": "pass",
-      "duration": 250.83000000000175
+      "duration": 328.2700000000041
     },
     {
       "name": "tsc",
       "class": "Build tool",
       "status": "fail",
-      "duration": 544.0599999999977,
+      "duration": 882.3650000000052,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20ts%20from%20%22https%3A%2F%2Fesm.sh%2Ftypescript%22%3B%0Atry%20%7B%0A%09if%20(typeof%20ts.transpile(%22let%20x%3A%20number%20%3D%201%3B%22)%20!%3D%3D%20%22string%22)%20throw%20new%20Error(%22transpile%20failed%22)%3B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "sass",
       "class": "Build tool",
       "status": "fail",
-      "duration": 2987.550000000003,
+      "duration": 287.1450000000041,
       "error": "The requested module 'https://esm.sh/sass' does not provide an export named 'default'"
     },
     {
       "name": "rollup",
       "class": "Bundler",
       "status": "fail",
-      "duration": 280.5,
+      "duration": 72.05000000000291,
       "error": "The requested module 'https://esm.sh/rollup' does not provide an export named 'default'"
     },
     {
       "name": "webpack",
       "class": "Bundler",
       "status": "fail",
-      "duration": 595.1500000000087,
+      "duration": 794.5149999999994,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20%22https%3A%2F%2Fesm.sh%2Fwebpack%22%3B%0Atry%20%7B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "vite",
       "class": "Bundler",
       "status": "fail",
-      "duration": 378.2649999999994,
+      "duration": 317.070000000007,
       "error": "The requested module 'https://esm.sh/vite' does not provide an export named 'default'"
     },
     {
       "name": "parcel",
       "class": "Bundler",
       "status": "fail",
-      "duration": 573.9099999999889,
+      "duration": 1185.465000000011,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20parcel%20from%20%22https%3A%2F%2Fesm.sh%2Fparcel%22%3B%0Atry%20%7B%0A%09if%20(typeof%20parcel%20!%3D%3D%20%22object%22%20%26%26%20typeof%20parcel%20!%3D%3D%20%22function%22)%20throw%20new%20Error(%22unexpected%20export%22)%3B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "vitest",
       "class": "Testing",
       "status": "fail",
-      "duration": 1400.715000000011,
+      "duration": 2135.1900000000023,
       "error": "The requested module 'https://esm.sh/vitest' does not provide an export named 'default'"
     },
     {
       "name": "jest",
       "class": "Testing",
       "status": "fail",
-      "duration": 543.625,
+      "duration": 2081.2599999999948,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20%22https%3A%2F%2Fesm.sh%2Fjest%22%3B%0Atry%20%7B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "express",
       "class": "HTTP server",
       "status": "fail",
-      "duration": 355.9100000000035,
+      "duration": 495.65499999999884,
       "error": "Object prototype may only be an Object or null: undefined"
     },
     {
       "name": "fastify",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 437.4399999999878
+      "duration": 754.4049999999988
     },
     {
       "name": "h3",
       "class": "HTTP server",
       "status": "fail",
-      "duration": 2955.9400000000023,
+      "duration": 276.3399999999965,
       "error": "The requested module 'https://esm.sh/h3' does not provide an export named 'default'"
     },
     {
       "name": "polka",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 602.6949999999924
+      "duration": 570.8250000000116
     },
     {
       "name": "crypto-js",
       "class": "Crypto",
       "status": "pass",
-      "duration": 64.13499999999476
+      "duration": 55.645000000004075
     },
     {
       "name": "bcrypt",
       "class": "Crypto",
       "status": "fail",
-      "duration": 224.49000000000524,
+      "duration": 368.71500000001106,
       "error": "No native build was found for platform=linux arch= runtime=node abi=undefined uv= libc=glibc node=22.14.0\n    loaded from: /bcrypt@6.0.0/es2022"
     },
     {
       "name": "argon2",
       "class": "Crypto",
       "status": "fail",
-      "duration": 304.5149999999994,
+      "duration": 236.52499999999418,
       "error": "No native build was found for platform=linux arch= runtime=node abi=undefined uv= libc=glibc node=22.14.0\n    loaded from: /argon2@0.45.1/es2022"
     },
     {
       "name": "handlebars",
       "class": "Template",
       "status": "pass",
-      "duration": 207.1999999999971
+      "duration": 222.42999999999302
     },
     {
       "name": "ejs",
       "class": "Template",
       "status": "pass",
-      "duration": 166.25999999999476
+      "duration": 203.41999999999825
     },
     {
       "name": "pug",
       "class": "Template",
       "status": "pass",
-      "duration": 411.22499999999127
+      "duration": 945.1399999999994
     },
     {
       "name": "hono",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 338.1350000000093
+      "duration": 400.625
     },
     {
       "name": "elysia",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 849.179999999993
+      "duration": 350.7749999999942
     },
     {
       "name": "itty-router",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 328.73499999998603
+      "duration": 301.3099999999977
     },
     {
       "name": "koa",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 333.5199999999895
+      "duration": 451.7949999999837
     },
     {
       "name": "zod",
       "class": "Validation",
       "status": "pass",
-      "duration": 107.52999999999884
+      "duration": 78.27999999999884
     },
     {
       "name": "uuid",
       "class": "Utility",
       "status": "fail",
-      "duration": 171.52999999999884,
+      "duration": 205.31500000000233,
       "error": "The requested module 'https://esm.sh/uuid' does not provide an export named 'default'"
     },
     {
       "name": "lodash",
       "class": "Utility",
       "status": "pass",
-      "duration": 88.7050000000163
+      "duration": 66.26499999998487
     },
     {
       "name": "chalk",
       "class": "Utility",
       "status": "pass",
-      "duration": 73.375
+      "duration": 271.67500000001746
     },
     {
       "name": "events",
       "class": "Node core API",
       "status": "fail",
-      "duration": 12.85999999998603,
+      "duration": 12.604999999981374,
       "error": "Build failed with 1 error:\n\n\u001b[31m[MISSING_EXPORT] \u001b[0m\"EventEmitter\" is not exported by \"bolo-node-shim:events\".\n   \u001b[38;5;246m╭\u001b[0m\u001b[38;5;246m─\u001b[0m\u001b[38;5;246m[\u001b[0m probe/events.mjs:2:10 \u001b[38;5;246m]\u001b[0m\n   \u001b[38;5;246m│\u001b[0m\n \u001b[38;5;246m2 │\u001b[0m \u001b[38;5;249mi\u001b[0m\u001b[38;5;249mm\u001b[0m\u001b[38;5;249mp\u001b[0m\u001b[38;5;249mo\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249mt\u001b[0m\u001b[38;5;249m \u001b[0m\u001b[38;5;249m{\u001b[0m\u001b[38;5;249m \u001b[0mEventEmitter\u001b[38;5;249m \u001b[0m\u001b[38;5;249m}\u001b[0m\u001b[38;5;249m \u001b[0m\u001b[38;5;249mf\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249mo\u001b[0m\u001b[38;5;249mm\u001b[0m\u001b[38;5;249m \u001b[0m\u001b[38;5;249m'\u001b[0m\u001b[38;5;249mn\u001b[0m\u001b[38;5;249mo\u001b[0m\u001b[38;5;249md\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249m:\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mv\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mn\u001b[0m\u001b[38;5;249mt\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249m'\u001b[0m\u001b[38;5;249m;\u001b[0m\n \u001b[38;5;240m  │\u001b[0m          ──────┬─────  \n \u001b[38;5;240m  │\u001b[0m                ╰─────── Missing export\n\u001b[38;5;246m───╯\u001b[0m"
     },
     {
       "name": "stream",
       "class": "Node core API",
       "status": "pass",
-      "duration": 10.739999999990687
+      "duration": 9.790000000008149
     },
     {
       "name": "buffer",
       "class": "Node core API",
       "status": "fail",
-      "duration": 10.764999999984866,
+      "duration": 9.839999999996508,
       "error": "Identifier 'Buffer' has already been declared"
     },
     {
       "name": "crypto",
       "class": "Node core API",
       "status": "pass",
-      "duration": 14.855000000010477
+      "duration": 14.214999999996508
     },
     {
       "name": "path",
       "class": "Node core API",
       "status": "pass",
-      "duration": 13.639999999984866
+      "duration": 15.445000000006985
     },
     {
       "name": "url",
       "class": "Node core API",
       "status": "pass",
-      "duration": 10.839999999996508
+      "duration": 11.549999999988358
     },
     {
       "name": "querystring",
       "class": "Node core API",
       "status": "pass",
-      "duration": 11.72500000000582
+      "duration": 11.404999999998836
     },
     {
       "name": "zlib",
       "class": "Node core API",
       "status": "pass",
-      "duration": 15.744999999995343
+      "duration": 14.440000000002328
     },
     {
       "name": "ajv",
       "class": "Validation",
       "status": "pass",
-      "duration": 179.0099999999802
+      "duration": 280.0899999999965
     },
     {
       "name": "joi",
       "class": "Validation",
       "status": "pass",
-      "duration": 257.42500000001746
+      "duration": 590.890000000014
     },
     {
       "name": "valibot",
       "class": "Validation",
       "status": "pass",
-      "duration": 177.00499999997555
+      "duration": 187.5900000000256
     },
     {
       "name": "yup",
       "class": "Validation",
       "status": "pass",
-      "duration": 269.16500000000815
+      "duration": 203.6349999999802
     },
     {
       "name": "fast-json-stringify",
       "class": "Validation",
       "status": "pass",
-      "duration": 164.95999999999185
+      "duration": 650.0199999999895
     },
     {
       "name": "superstruct",
       "class": "Validation",
       "status": "pass",
-      "duration": 196.0450000000128
+      "duration": 193.20000000001164
     },
     {
       "name": "io-ts",
       "class": "Validation",
       "status": "pass",
-      "duration": 211.65499999999884
+      "duration": 239.88000000000466
     },
     {
       "name": "nanoid",
       "class": "Utility",
       "status": "pass",
-      "duration": 53.845000000001164
+      "duration": 184.02999999999884
     },
     {
       "name": "dotenv",
       "class": "Utility",
       "status": "pass",
-      "duration": 170.61000000001513
+      "duration": 181.37000000002445
     },
     {
       "name": "js-yaml",
       "class": "Utility",
       "status": "fail",
-      "duration": 194.81500000000233,
+      "duration": 187.26500000001397,
       "error": "The requested module 'https://esm.sh/js-yaml' does not provide an export named 'default'"
     },
     {
       "name": "json5",
       "class": "Utility",
       "status": "pass",
-      "duration": 183.06500000000233
+      "duration": 212.85499999998137
     },
     {
       "name": "semver",
       "class": "Utility",
       "status": "pass",
-      "duration": 32.085000000020955
+      "duration": 33.49500000002445
     },
     {
       "name": "ms",
       "class": "Utility",
       "status": "pass",
-      "duration": 150.47500000000582
+      "duration": 199.14499999998952
     },
     {
       "name": "debug",
       "class": "Utility",
       "status": "pass",
-      "duration": 30.369999999995343
+      "duration": 33.98499999998603
     },
     {
       "name": "deepmerge",
       "class": "Utility",
       "status": "pass",
-      "duration": 157.9550000000163
+      "duration": 342.7850000000035
     },
     {
       "name": "query-string",
       "class": "Utility",
       "status": "pass",
-      "duration": 202.90499999999884
+      "duration": 496.02999999999884
     },
     {
       "name": "fast-deep-equal",
       "class": "Utility",
       "status": "pass",
-      "duration": 146.06500000000233
+      "duration": 180.94000000000233
     },
     {
       "name": "change-case",
       "class": "Utility",
       "status": "pass",
-      "duration": 181.93499999999767
+      "duration": 203.29999999998836
     },
     {
       "name": "p-limit",
       "class": "Utility",
       "status": "pass",
-      "duration": 78.86999999999534
+      "duration": 62.94000000000233
     },
     {
       "name": "lru-cache",
       "class": "Utility",
       "status": "pass",
-      "duration": 183.69000000000233
+      "duration": 199.50500000000466
     },
     {
       "name": "date-fns",
       "class": "Utility",
       "status": "pass",
-      "duration": 624.3300000000163
+      "duration": 866.2999999999884
     },
     {
       "name": "dayjs",
       "class": "Utility",
       "status": "pass",
-      "duration": 57.695000000006985
+      "duration": 49.86499999999069
     },
     {
       "name": "luxon",
       "class": "Utility",
       "status": "pass",
-      "duration": 185.41499999997905
+      "duration": 206.19000000000233
     },
     {
       "name": "throttle-debounce",
       "class": "Utility",
       "status": "pass",
-      "duration": 171.8399999999965
+      "duration": 188.5100000000093
     },
     {
       "name": "rimraf",
       "class": "File system",
       "status": "fail",
-      "duration": 223.77000000001863,
+      "duration": 226.3299999999872,
       "error": "The requested module 'https://esm.sh/rimraf' does not provide an export named 'default'"
     },
     {
       "name": "glob",
       "class": "File system",
       "status": "fail",
-      "duration": 152.72000000000116,
+      "duration": 175.0450000000128,
       "error": "The requested module 'https://esm.sh/glob' does not provide an export named 'default'"
     },
     {
       "name": "mkdirp",
       "class": "File system",
       "status": "fail",
-      "duration": 170.87000000002445,
+      "duration": 230.89999999999418,
       "error": "The requested module 'https://esm.sh/mkdirp' does not provide an export named 'default'"
     },
     {
       "name": "del",
       "class": "File system",
       "status": "fail",
-      "duration": 279.86000000001513,
+      "duration": 310.5,
       "error": "The requested module '/unicorn-magic@^0.3.0?target=es2022' does not provide an export named 'toPath'"
     },
     {
       "name": "memfs",
       "class": "File system",
       "status": "fail",
-      "duration": 496.27999999999884,
+      "duration": 492.38000000000466,
       "error": "The requested module 'https://esm.sh/memfs' does not provide an export named 'Volume'"
     },
     {
       "name": "cors",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 194.8300000000163
+      "duration": 228.5099999999802
     },
     {
       "name": "helmet",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 187.44499999997788
+      "duration": 188.94000000000233
     },
     {
       "name": "morgan",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 339.20999999999185
+      "duration": 721.9949999999953
     },
     {
       "name": "compression",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 242.54000000000815
+      "duration": 228.52999999999884
     },
     {
       "name": "serve-static",
       "class": "HTTP server",
       "status": "fail",
-      "duration": 144.2399999999907,
+      "duration": 167.29000000000815,
       "error": "Object prototype may only be an Object or null: undefined"
     },
     {
       "name": "cookie-parser",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 173.0100000000093
+      "duration": 202.2150000000256
     },
     {
       "name": "body-parser",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 155.7849999999744
+      "duration": 161.80500000002212
     },
     {
       "name": "pino",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 176.51500000001397
+      "duration": 335.4350000000268
     },
     {
       "name": "winston",
       "class": "HTTP server",
       "status": "fail",
-      "duration": 277.2049999999872,
+      "duration": 456.48499999998603,
       "error": "Class constructor E cannot be invoked without 'new'"
     },
     {
       "name": "got",
       "class": "HTTP client",
       "status": "fail",
-      "duration": 346.49499999999534,
+      "duration": 534.4800000000105,
       "error": "[unenv] PassThrough is not implemented yet!"
     },
     {
       "name": "ky",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 54.44000000000233
+      "duration": 186.49499999999534
     },
     {
       "name": "http-proxy-agent",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 187.2850000000035
+      "duration": 238.5450000000128
     },
     {
       "name": "form-data",
       "class": "HTTP client",
       "status": "pass",
-      "duration": 236.18499999999767
+      "duration": 240.13999999998487
     },
     {
       "name": "sha.js",
       "class": "Crypto",
       "status": "pass",
-      "duration": 243.05999999999767
+      "duration": 236.1149999999907
     },
     {
       "name": "hash.js",
       "class": "Crypto",
       "status": "pass",
-      "duration": 190.32499999998254
+      "duration": 206.0450000000128
     },
     {
       "name": "md5",
       "class": "Crypto",
       "status": "pass",
-      "duration": 218.4200000000128
+      "duration": 219.53999999997905
     },
     {
       "name": "create-hash",
       "class": "Crypto",
       "status": "pass",
-      "duration": 326.5
+      "duration": 352.17500000001746
     },
     {
       "name": "jose",
       "class": "Crypto",
       "status": "pass",
-      "duration": 124.50500000000466
+      "duration": 300.9350000000268
     },
     {
       "name": "jsonwebtoken",
       "class": "Crypto",
       "status": "fail",
-      "duration": 299.7150000000256,
+      "duration": 262.4800000000105,
       "error": "Object prototype may only be an Object or null: undefined"
     },
     {
       "name": "pbkdf2",
       "class": "Crypto",
       "status": "pass",
-      "duration": 239.19500000000698
+      "duration": 306.554999999993
     },
     {
       "name": "marked",
       "class": "Template",
       "status": "pass",
-      "duration": 64.97500000000582
+      "duration": 50.02000000001863
     },
     {
       "name": "markdown-it",
       "class": "Template",
       "status": "pass",
-      "duration": 234.77499999999418
+      "duration": 563.6549999999988
     },
     {
       "name": "micromark",
       "class": "Template",
       "status": "pass",
-      "duration": 265.8999999999942
+      "duration": 280.95000000001164
     },
     {
       "name": "nunjucks",
       "class": "Template",
       "status": "pass",
-      "duration": 194.24499999999534
+      "duration": 196.97500000000582
     },
     {
       "name": "liquidjs",
       "class": "Template",
       "status": "pass",
-      "duration": 192.86000000001513
+      "duration": 298.5099999999802
     },
     {
       "name": "mustache",
       "class": "Template",
       "status": "pass",
-      "duration": 173.7399999999907
+      "duration": 221.86000000001513
     },
     {
       "name": "twig",
       "class": "Template",
       "status": "pass",
-      "duration": 310.1149999999907
+      "duration": 311.445000000007
     },
     {
       "name": "chai",
       "class": "Testing",
       "status": "pass",
-      "duration": 170.7850000000035
+      "duration": 176.07000000000698
     },
     {
       "name": "sinon",
       "class": "Testing",
       "status": "pass",
-      "duration": 246.81500000000233
+      "duration": 329.179999999993
     },
     {
       "name": "dompurify",
       "class": "Testing",
       "status": "pass",
-      "duration": 72.9199999999837
+      "duration": 54.904999999998836
     },
     {
       "name": "linkedom",
       "class": "Testing",
       "status": "pass",
-      "duration": 595.125
+      "duration": 1895.0899999999965
     },
     {
       "name": "lightningcss",
       "class": "Build tool",
       "status": "fail",
-      "duration": 37.875,
+      "duration": 46.89999999999418,
       "error": "Cannot read properties of null (reading 'transform')"
     },
     {
       "name": "postcss",
       "class": "Build tool",
       "status": "pass",
-      "duration": 39.61499999999069
+      "duration": 39.625
     },
     {
       "name": "babel",
       "class": "Build tool",
       "status": "fail",
-      "duration": 311.195000000007,
+      "duration": 354.79000000000815,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20*%20as%20babel%20from%20%22https%3A%2F%2Fesm.sh%2F%40babel%2Fcore%22%3B%0Atry%20%7B%0A%09if%20(typeof%20babel.transformSync(%22const%20x%20%3D%201%3B%22%2C%20%7B%20presets%3A%20%5B%5D%20%7D).code%20!%3D%3D%20%22string%22)%20throw%20new%20Error(%22babel%20failed%22)%3B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "sucrase",
       "class": "Build tool",
       "status": "pass",
-      "duration": 360.15499999999884
+      "duration": 222.2149999999965
     },
     {
       "name": "acorn",
       "class": "Build tool",
       "status": "pass",
-      "duration": 149.35500000001048
+      "duration": 355.36000000001513
     },
     {
       "name": "rspack",
       "class": "Bundler",
       "status": "fail",
-      "duration": 303.1900000000023,
+      "duration": 2259.5449999999837,
       "error": "[unenv] module.require is not implemented yet!"
     },
     {
       "name": "turbo",
       "class": "Bundler",
       "status": "fail",
-      "duration": 180.36999999999534,
+      "duration": 138.6150000000198,
       "error": "Failed to fetch dynamically imported module: data:text/javascript;charset=utf-8,var%20__bcGlobals%20%3D%20()%20%3D%3E%20globalThis.__browserContainers%3B%0Avar%20process%20%3D%20__bcGlobals()%3F.shims%3F.process%3B%0A__bcGlobals()%3F.shims%3F.buffer%3F.Buffer%3B%0Avar%20__bcFormat%20%3D%20(args)%20%3D%3E%20args.map((a)%20%3D%3E%20%7B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22string%22)%20return%20a%3B%0A%09if%20(a%20instanceof%20Error)%20return%20a.stack%20%7C%7C%20String(a)%3B%0A%09if%20(typeof%20a%20%3D%3D%3D%20%22object%22%20%26%26%20a%20!%3D%3D%20null)%20try%20%7B%0A%09%09return%20JSON.stringify(a)%3B%0A%09%7D%20catch%20%7B%0A%09%09return%20String(a)%3B%0A%09%7D%0A%09return%20String(a)%3B%0A%7D).join(%22%20%22)%3B%0Avar%20__bcWrite%20%3D%20(stream%2C%20args)%20%3D%3E%20__bcGlobals()%3F.shims%3F.process%3F.%5Bstream%5D%3F.write(__bcFormat(args)%20%2B%20%22%5Cn%22)%3B%0Avar%20console%20%3D%20%7B%0A%09log%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09info%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09debug%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09table%3A%20(...args)%20%3D%3E%20__bcWrite(%22stdout%22%2C%20args)%2C%0A%09warn%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09error%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20args)%2C%0A%09trace%3A%20(...args)%20%3D%3E%20__bcWrite(%22stderr%22%2C%20%5B%22Trace%3A%22%2C%20...args%5D)%2C%0A%09assert%3A%20(cond%2C%20...args)%20%3D%3E%20%7B%0A%09%09if%20(!cond)%20__bcWrite(%22stderr%22%2C%20%5B%22Assertion%20failed%22%20%2B%20(args.length%20%3F%20%22%3A%22%20%3A%20%22%22)%2C%20...args%5D)%3B%0A%09%7D%2C%0A%09group%3A%20()%20%3D%3E%20%7B%7D%2C%0A%09groupEnd%3A%20()%20%3D%3E%20%7B%7D%0A%7D%3B%0Aimport%20*%20as%20turbo%20from%20%22https%3A%2F%2Fesm.sh%2F%40turbo%2Fworker%22%3B%0Atry%20%7B%0A%09if%20(typeof%20turbo%20!%3D%3D%20%22object%22)%20throw%20new%20Error(%22turbo%20failed%22)%3B%0A%09console.log(%22PASS%22)%3B%0A%7D%20catch%20(e)%20%7B%0A%09console.error(e.message)%3B%0A%09process.exit(1)%3B%0A%7D%0A%2F%2F%23endregion%0A"
     },
     {
       "name": "ws",
       "class": "HTTP server",
       "status": "pass",
-      "duration": 55.44999999998254
+      "duration": 45.595000000001164
     }
   ]
 }
